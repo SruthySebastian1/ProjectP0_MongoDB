@@ -1,11 +1,51 @@
-PROJECT P0 : QUERIES
-(20-07-2021)
+                                                                                                        PROJECT P0 : QUERIES    [Mongodb + PyMongo]
+                                                                                                                     (20-07-2021)
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+                                                                                                               a -> MongoDB Query
+                                                                                                               b -> PyMongo Query
+------------------OBJECTIVE----------------------------------------------------------------------
+Import JSON file and Query data from MongoDB Shell and PyMongo
+Import the restaurants data into MongoDB in to separate databases. 
+i) direct import (no code, using mongoimport)
+ii) using Python - PyMongo driver
+Write queries to view the data, apply filters to show only specific documents based on conditions, perform aggregations, show/hide specific attributes (columns), use regular expressions to filter search etc.
+Queries to be written in both, MongoDB shell and PyMongo in Python code.
+------------------REQUIREMENTS:--------------------------------------------------------------
+Visual Studio Code 
+Mongo Shell , Mongo Server
 
+------------------PROCEDURE--------------------------------------------------------------------
+1. Start The Server: using mongod
+2. Start The Shell :using  mongo
+3. Import File : using mongoimport
+4. Execute Mongodb queries
+5. Connect Pymongo to MongoDB : using MongoClient()
+6. Read JSON file or directly through connection string
+7. Execute PyMongo Queries
+
+-----------------REASDING A JSON FILE------------------------------------------------------
+from pymongo import MongoClient, ASCENDING, DESCENDING
+from datetime import datetime
+import pprint
+import json
+
+client = MongoClient()                     # Establish connection. [localhost:27017]
+db = client.rest                                  #Database: rest, restcoll: collection 
+restcoll = db.restcoll                         # Init collection object.
+
+path=r"C:\Users\acer\project01\P0-Python-MongoDB\restaurants.json"
+with open(path,'r') as f_in:
+    document=f_in.readlines()
+    for line in document:
+        z=json.loads(line)
+        result=restcoll.insert_one(z)
+
+------------------QUERIES-------------------------------------------------------------------
 1.	Write a MongoDB query to display all the documents in the collection restaurants.
 a.	db.restcoll.find().pretty()
 b.	for x in restcoll.find({}): 
- print(x)
+                  print(x)
 
 2. Write a MongoDB query to display the fields restaurant_id, name, borough and cuisine for all the documents in the collection restaurant.
 a. db.restcoll.find({},{"restaurant_id":1,"name":1,"borough":1,"cuisine":1})
@@ -169,5 +209,5 @@ a.db.restcoll.find({name: {$regex: /^Mad.*/}},{_id:0, name:1, borough:1, "addres
 b.for x in restcoll.find({'name': {'$regex': '^Mad.*'}},{'_id':0, 'name':1, 'borough':1, 'address.coord':1, 'cuisine':1}):
    print(x)})
  
-
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
