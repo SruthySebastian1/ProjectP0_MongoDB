@@ -1,9 +1,9 @@
-                                                                                                        PROJECT P0 : QUERIES    [Mongodb + PyMongo]
-                                                                                                                     (20-07-2021)
+                                  PROJECT P0 : QUERIES    [MongoDB + PyMongo]
+                                                         (20-07-2021)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-                                                                                                               a -> MongoDB Query
-                                                                                                               b -> PyMongo Query
+                                                                            a -> MongoDB
+                                                                            b -> PyMongo Query
 ------------------OBJECTIVE----------------------------------------------------------------------
 Import JSON file and Query data from MongoDB Shell and PyMongo
 Import the restaurants data into MongoDB in to separate databases. 
@@ -11,6 +11,7 @@ i) direct import (no code, using mongoimport)
 ii) using Python - PyMongo driver
 Write queries to view the data, apply filters to show only specific documents based on conditions, perform aggregations, show/hide specific attributes (columns), use regular expressions to filter search etc.
 Queries to be written in both, MongoDB shell and PyMongo in Python code.
+
 ------------------REQUIREMENTS:--------------------------------------------------------------
 Visual Studio Code 
 Mongo Shell , Mongo Server
@@ -151,11 +152,7 @@ b. for x in restcoll.find( {'$or': [  {'name': {'$regex': '^Wil.*'}},  {"$and": 
 
 22. Write a MongoDB query to find the restaurant Id, name, and grades for those restaurants which achieved a grade of "A" and scored 11 on an ISODate "2014-08-11T00:00:00Z" among many of survey dates..
 a. db.restcoll.find({"grades" : {$elemMatch: {"date": ISODate("2014-08-11T00:00:00Z"), "grade":"A", "score":11}}}, {_id:0, restaurant_id:1, name:1, grades:1}).pretty()
-
-
-
- 
-for x in restcoll.find({"grades" : {'$elemMatch': {"date":datetime.fromisoformat("2014-08-11T00:00:00"), "grade":"A", "score":11}}}, {'_id':False, "restaurant_id":1, "name":1, "grades":1}):
+b. for x in restcoll.find({"grades" : {'$elemMatch': {"date":datetime.fromisoformat("2014-08-11T00:00:00"), "grade":"A", "score":11}}}, {'_id':False, "restaurant_id":1, "name":1, "grades":1}):
   pprint.pprint(x)
 
 23. Write a MongoDB query to find the restaurant Id, name and grades for those restaurants where the 2nd element of grades array contains a grade of "A" and score 9 on an ISODate "2014-08-11T00:00:00Z".
